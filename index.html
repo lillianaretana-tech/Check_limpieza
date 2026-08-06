@@ -4,14 +4,16 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
   <meta name="theme-color" content="#173f67" />
-  <title>Control de recorridos</title>
+  <title>Emerson Cleaning Control</title>
   <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
 </head>
 <body>
   <section id="authView" class="auth-shell">
     <div class="login-brand">
       <div class="brand-mark">CR</div>
-      <div><span>CONTROL OPERATIVO</span><strong>Recorridos de limpieza</strong></div>
+      <div><span>EMERSON</span><strong>Cleaning Control</strong></div>
     </div>
     <form id="loginForm" class="auth-card">
       <p class="eyebrow">ACCESO SEGURO</p>
@@ -22,14 +24,14 @@
       <button class="btn primary full large" type="submit">Ingresar</button>
       <p id="loginError" class="error-text" aria-live="polite"></p>
     </form>
-    <p class="login-foot">Gestión simple, trazable y profesional.</p>
+    <p class="login-foot">Control profesional de recorridos de limpieza.</p>
   </section>
 
   <div id="appShell" class="app-shell hidden">
     <aside class="sidebar">
       <div class="sidebar-brand">
         <div class="brand-mark small">CR</div>
-        <div><span>CONTROL</span><strong>Recorridos</strong></div>
+        <div><span>EMERSON</span><strong>Cleaning Control</strong></div>
       </div>
       <nav id="nav" class="nav">
         <button data-view="dashboard" class="nav-link active"><span>▦</span>Inicio</button>
@@ -97,7 +99,7 @@
       </section>
 
       <section id="reportsView" class="view hidden">
-        <div class="page-intro"><div><p class="eyebrow">ANÁLISIS</p><h2>Reportes y cumplimiento</h2><p class="muted">Consulta resultados por fecha y piso, y descarga el detalle para Excel.</p></div><button id="exportCsv" class="btn primary">Descargar Excel/CSV</button></div>
+        <div class="page-intro"><div><p class="eyebrow">ANÁLISIS</p><h2>Reportes y cumplimiento</h2><p class="muted">Consulta resultados por fecha y piso, y descarga un reporte XLSX profesional con dashboard y detalle.</p></div><button id="exportXlsx" class="btn primary">Descargar reporte XLSX</button></div>
         <div id="kpis" class="metric-grid"></div>
         <div class="panel filters-panel">
           <label>Desde<span class="input-wrap"><input id="dateFrom" type="date"></span></label>
@@ -169,6 +171,7 @@
 
   <div id="toast" class="toast hidden" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.8/dist/umd/supabase.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
   <script src="supabase-config.js"></script>
   <script src="app.js"></script>
 </body>

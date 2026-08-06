@@ -1,8 +1,10 @@
-LISTA DE VERIFICACIÓN
+EMERSON CLEANING CONTROL - VERIFICACIÓN
 
-1. index.html está en la raíz del repositorio.
-2. styles.css, app.js y supabase-config.js están junto a index.html.
-3. GitHub Pages está configurado en main / root.
-4. El usuario fue creado en Supabase Authentication.
-5. El usuario administrador tiene role = admin en crl_profiles.
-6. No se subió ninguna clave service_role.
+1. Subir todos los archivos y la carpeta assets a la raíz del repositorio.
+2. Confirmar que index.html esté directamente en la raíz.
+3. No modificar supabase-config.js.
+4. Activar GitHub Pages desde la rama principal y carpeta raíz.
+5. Abrir la página y actualizar con Ctrl + F5.
+6. Ingresar con el usuario administrador ya creado.
+7. Verificar que aparezcan 101 áreas: Piso 1 = 21, Piso 2 = 21, Piso 3 = 26 y Piso 4 = 33.
+8. Generar un reporte de prueba con el botón Descargar reporte XLSX.
