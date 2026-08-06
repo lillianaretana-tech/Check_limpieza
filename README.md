@@ -1,29 +1,77 @@
-# Control de Recorridos de Limpieza v1.1
+# Control de Recorridos de Limpieza
 
-Aplicación web conectada al proyecto Supabase `SBM_Limpiando_ojos`.
+Aplicación web conectada a Supabase para registrar recorridos de limpieza por piso, observaciones, reprogramaciones, administración de áreas y reportes.
 
-## Incluye
-- 85 áreas cargadas y organizadas por piso.
-- Inicio de sesión con Supabase Auth.
-- Registro de limpieza, área ocupada, reprogramación y atención requerida.
-- Observaciones y hora para retomar.
-- Reportes y descarga CSV compatible con Excel.
-- Administración de áreas para perfiles `admin` y `coordinator`.
-- Historial de cambios y RLS.
-- Tablas aisladas con prefijo `crl_` para no interferir con otras apps.
+## Archivos que se suben a GitHub Pages
 
-## Publicación
-Suba todos los archivos de esta carpeta al mismo repositorio o servicio de hosting estático. No abra `index.html` directamente con doble clic; use GitHub Pages, Vercel, Netlify o un servidor local.
+Suba directamente a la raíz del repositorio:
 
-## Acceso inicial
-1. Cree el usuario en Supabase Authentication > Users.
-2. El trigger crea automáticamente su perfil como `staff`.
-3. Para convertirlo en administrador, ejecute en SQL Editor:
+- `index.html`
+- `styles.css`
+- `app.js`
+- `supabase-config.js`
+
+Los siguientes archivos también pueden quedar en la raíz como respaldo/documentación, pero el navegador no los necesita para ejecutar la app:
+
+- `supabase-schema.sql`
+- `areas.json`
+- `README.md`
+
+## Estructura correcta en GitHub
+
+```text
+/
+├── index.html
+├── styles.css
+├── app.js
+├── supabase-config.js
+├── supabase-schema.sql
+├── areas.json
+└── README.md
+```
+
+No suba una carpeta adicional que contenga estos archivos. `index.html` debe verse directamente al abrir el repositorio.
+
+## Supabase
+
+La app ya está configurada para el proyecto:
+
+`https://uamyglxdzmdrwjdfscvg.supabase.co`
+
+Las tablas de esta aplicación usan el prefijo `crl_` para no interferir con las demás apps del proyecto compartido.
+
+## Crear usuarios
+
+1. En Supabase abra **Authentication > Users**.
+2. Cree el usuario con correo y contraseña.
+3. El trigger de la base crea automáticamente su perfil como `staff`.
+4. Para convertirlo en administrador, ejecute en SQL Editor:
 
 ```sql
 update public.crl_profiles
-set role = 'admin', full_name = 'Nombre de la persona'
-where id = (select id from auth.users where email = 'correo@ejemplo.com');
+set role = 'admin', active = true
+where id = (
+  select id from auth.users where email = 'CORREO@EJEMPLO.COM'
+);
 ```
 
-Nunca coloque una `service_role key` en estos archivos. La clave incluida es únicamente la clave pública/anon.
+Roles disponibles:
+
+- `admin`: administra áreas y consulta todos los reportes.
+- `coordinator`: administra áreas y consulta todos los reportes.
+- `staff`: registra y consulta únicamente sus recorridos.
+
+## Publicar con GitHub Pages
+
+1. Cree o abra el repositorio.
+2. Suba los archivos a la raíz.
+3. Vaya a **Settings > Pages**.
+4. En **Build and deployment**, seleccione **Deploy from a branch**.
+5. Seleccione la rama `main` y la carpeta `/root`.
+6. Guarde y espere a que GitHub muestre el enlace publicado.
+
+## Notas
+
+- La clave del archivo `supabase-config.js` es la clave pública `anon`, no una clave de servicio.
+- No coloque nunca una clave `service_role` dentro del repositorio.
+- La aplicación necesita conexión a Internet para comunicarse con Supabase y cargar la librería oficial desde CDN.

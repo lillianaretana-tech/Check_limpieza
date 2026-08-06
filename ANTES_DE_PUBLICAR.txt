@@ -1,0 +1,8 @@
+LISTA DE VERIFICACIÓN
+
+1. index.html está en la raíz del repositorio.
+2. styles.css, app.js y supabase-config.js están junto a index.html.
+3. GitHub Pages está configurado en main / root.
+4. El usuario fue creado en Supabase Authentication.
+5. El usuario administrador tiene role = admin en crl_profiles.
+6. No se subió ninguna clave service_role.
