@@ -8,6 +8,18 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <section id="authView" class="auth-shell">
+    <form id="loginForm" class="auth-card card">
+      <p class="eyebrow">CONTROL OPERATIVO</p>
+      <h1>Recorridos de limpieza</h1>
+      <p class="muted">Ingrese con su cuenta autorizada.</p>
+      <label>Correo electrónico<input id="loginEmail" type="email" autocomplete="email" required></label>
+      <label>Contraseña<input id="loginPassword" type="password" autocomplete="current-password" minlength="6" required></label>
+      <button class="btn primary full" type="submit">Ingresar</button>
+      <p id="loginError" class="error-text"></p>
+    </form>
+  </section>
+  <div id="appShell" class="hidden">
   <header class="topbar">
     <div>
       <p class="eyebrow">CONTROL OPERATIVO</p>
@@ -85,10 +97,11 @@
     <section id="settingsView" class="view hidden">
       <div class="section-title"><div><p class="eyebrow">AJUSTES</p><h2>Configuración</h2></div></div>
       <div class="card settings-card">
-        <label>Nombre del usuario<input id="userName" value="Coordinación"></label>
-        <label>Perfil<select id="userRole"><option value="admin">Administrador</option><option value="staff">Personal operativo</option></select></label>
-        <button id="saveSettings" class="btn primary">Guardar configuración</button>
-        <p class="muted">Esta versión funciona localmente. El archivo <code>supabase-config.js</code> queda preparado para la conexión posterior.</p>
+        <label>Nombre del usuario<input id="userName" disabled></label>
+        <label>Perfil<input id="userRole" disabled></label>
+        <label>Correo<input id="userEmail" disabled></label>
+        <button id="logoutBtn" class="btn secondary">Cerrar sesión</button>
+        <p class="muted">Los datos se guardan en Supabase y están protegidos mediante RLS.</p>
       </div>
     </section>
   </main>
@@ -129,6 +142,8 @@
   </dialog>
 
   <div id="toast" class="toast hidden"></div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.8/dist/umd/supabase.min.js"></script>
   <script src="supabase-config.js"></script>
   <script src="app.js"></script>
 </body>
