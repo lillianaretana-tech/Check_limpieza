@@ -1,0 +1,852 @@
+[
+  {
+    "id": "p1-training-roo-01",
+    "floor": 1,
+    "name": "Piso 1 - Training Room 1",
+    "code": "P1-TRAINING-ROO-01",
+    "type": "Training Room",
+    "order": 1,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-training-roo-02",
+    "floor": 1,
+    "name": "Piso 1 - Training Room 2",
+    "code": "P1-TRAINING-ROO-02",
+    "type": "Training Room",
+    "order": 2,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-training-roo-03",
+    "floor": 1,
+    "name": "Piso 1 - Training Room 3",
+    "code": "P1-TRAINING-ROO-03",
+    "type": "Training Room",
+    "order": 3,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-training-roo-04",
+    "floor": 1,
+    "name": "Piso 1 - Training Room 4",
+    "code": "P1-TRAINING-ROO-04",
+    "type": "Training Room",
+    "order": 4,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-01",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 1",
+    "code": "P1-OFICINA-01",
+    "type": "Oficina",
+    "order": 5,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-02",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 2",
+    "code": "P1-OFICINA-02",
+    "type": "Oficina",
+    "order": 6,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-03",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 3",
+    "code": "P1-OFICINA-03",
+    "type": "Oficina",
+    "order": 7,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-04",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 4",
+    "code": "P1-OFICINA-04",
+    "type": "Oficina",
+    "order": 8,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-05",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 5",
+    "code": "P1-OFICINA-05",
+    "type": "Oficina",
+    "order": 9,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-06",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 6",
+    "code": "P1-OFICINA-06",
+    "type": "Oficina",
+    "order": 10,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-07",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 7",
+    "code": "P1-OFICINA-07",
+    "type": "Oficina",
+    "order": 11,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-oficina-08",
+    "floor": 1,
+    "name": "Piso 1 - Oficina 8",
+    "code": "P1-OFICINA-08",
+    "type": "Oficina",
+    "order": 12,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-meeting-room-01",
+    "floor": 1,
+    "name": "Piso 1 - Meeting Room 1",
+    "code": "P1-MEETING-ROOM-01",
+    "type": "Meeting Room",
+    "order": 13,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-meeting-room-02",
+    "floor": 1,
+    "name": "Piso 1 - Meeting Room 2",
+    "code": "P1-MEETING-ROOM-02",
+    "type": "Meeting Room",
+    "order": 14,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-laboratorio-01",
+    "floor": 1,
+    "name": "Piso 1 - Laboratorio 1",
+    "code": "P1-LABORATORIO-01",
+    "type": "Laboratorio",
+    "order": 15,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-laboratorio-02",
+    "floor": 1,
+    "name": "Piso 1 - Laboratorio 2",
+    "code": "P1-LABORATORIO-02",
+    "type": "Laboratorio",
+    "order": 16,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-laboratorio-03",
+    "floor": 1,
+    "name": "Piso 1 - Laboratorio 3",
+    "code": "P1-LABORATORIO-03",
+    "type": "Laboratorio",
+    "order": 17,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-otro-01",
+    "floor": 1,
+    "name": "Piso 1 - Otro 1",
+    "code": "P1-OTRO-01",
+    "type": "Otro",
+    "order": 18,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-otro-02",
+    "floor": 1,
+    "name": "Piso 1 - Otro 2",
+    "code": "P1-OTRO-02",
+    "type": "Otro",
+    "order": 19,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-otro-03",
+    "floor": 1,
+    "name": "Piso 1 - Otro 3",
+    "code": "P1-OTRO-03",
+    "type": "Otro",
+    "order": 20,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-otro-04",
+    "floor": 1,
+    "name": "Piso 1 - Otro 4",
+    "code": "P1-OTRO-04",
+    "type": "Otro",
+    "order": 21,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p1-otro-05",
+    "floor": 1,
+    "name": "Piso 1 - Otro 5",
+    "code": "P1-OTRO-05",
+    "type": "Otro",
+    "order": 22,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-training-roo-01",
+    "floor": 2,
+    "name": "Piso 2 - Training Room 1",
+    "code": "P2-TRAINING-ROO-01",
+    "type": "Training Room",
+    "order": 1,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-training-roo-02",
+    "floor": 2,
+    "name": "Piso 2 - Training Room 2",
+    "code": "P2-TRAINING-ROO-02",
+    "type": "Training Room",
+    "order": 2,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-oficina-01",
+    "floor": 2,
+    "name": "Piso 2 - Oficina 1",
+    "code": "P2-OFICINA-01",
+    "type": "Oficina",
+    "order": 3,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-oficina-02",
+    "floor": 2,
+    "name": "Piso 2 - Oficina 2",
+    "code": "P2-OFICINA-02",
+    "type": "Oficina",
+    "order": 4,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-oficina-03",
+    "floor": 2,
+    "name": "Piso 2 - Oficina 3",
+    "code": "P2-OFICINA-03",
+    "type": "Oficina",
+    "order": 5,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-oficina-04",
+    "floor": 2,
+    "name": "Piso 2 - Oficina 4",
+    "code": "P2-OFICINA-04",
+    "type": "Oficina",
+    "order": 6,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-01",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 1",
+    "code": "P2-MEETING-ROOM-01",
+    "type": "Meeting Room",
+    "order": 7,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-02",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 2",
+    "code": "P2-MEETING-ROOM-02",
+    "type": "Meeting Room",
+    "order": 8,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-03",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 3",
+    "code": "P2-MEETING-ROOM-03",
+    "type": "Meeting Room",
+    "order": 9,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-04",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 4",
+    "code": "P2-MEETING-ROOM-04",
+    "type": "Meeting Room",
+    "order": 10,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-05",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 5",
+    "code": "P2-MEETING-ROOM-05",
+    "type": "Meeting Room",
+    "order": 11,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-06",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 6",
+    "code": "P2-MEETING-ROOM-06",
+    "type": "Meeting Room",
+    "order": 12,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-07",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 7",
+    "code": "P2-MEETING-ROOM-07",
+    "type": "Meeting Room",
+    "order": 13,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-meeting-room-08",
+    "floor": 2,
+    "name": "Piso 2 - Meeting Room 8",
+    "code": "P2-MEETING-ROOM-08",
+    "type": "Meeting Room",
+    "order": 14,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-laboratorio-01",
+    "floor": 2,
+    "name": "Piso 2 - Laboratorio 1",
+    "code": "P2-LABORATORIO-01",
+    "type": "Laboratorio",
+    "order": 15,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-laboratorio-02",
+    "floor": 2,
+    "name": "Piso 2 - Laboratorio 2",
+    "code": "P2-LABORATORIO-02",
+    "type": "Laboratorio",
+    "order": 16,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-laboratorio-03",
+    "floor": 2,
+    "name": "Piso 2 - Laboratorio 3",
+    "code": "P2-LABORATORIO-03",
+    "type": "Laboratorio",
+    "order": 17,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-laboratorio-04",
+    "floor": 2,
+    "name": "Piso 2 - Laboratorio 4",
+    "code": "P2-LABORATORIO-04",
+    "type": "Laboratorio",
+    "order": 18,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p2-otro-01",
+    "floor": 2,
+    "name": "Piso 2 - Otro 1",
+    "code": "P2-OTRO-01",
+    "type": "Otro",
+    "order": 19,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-training-roo-01",
+    "floor": 3,
+    "name": "Piso 3 - Training Room 1",
+    "code": "P3-TRAINING-ROO-01",
+    "type": "Training Room",
+    "order": 1,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-training-roo-02",
+    "floor": 3,
+    "name": "Piso 3 - Training Room 2",
+    "code": "P3-TRAINING-ROO-02",
+    "type": "Training Room",
+    "order": 2,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-01",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 1",
+    "code": "P3-OFICINA-01",
+    "type": "Oficina",
+    "order": 3,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-02",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 2",
+    "code": "P3-OFICINA-02",
+    "type": "Oficina",
+    "order": 4,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-03",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 3",
+    "code": "P3-OFICINA-03",
+    "type": "Oficina",
+    "order": 5,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-04",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 4",
+    "code": "P3-OFICINA-04",
+    "type": "Oficina",
+    "order": 6,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-05",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 5",
+    "code": "P3-OFICINA-05",
+    "type": "Oficina",
+    "order": 7,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-06",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 6",
+    "code": "P3-OFICINA-06",
+    "type": "Oficina",
+    "order": 8,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-07",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 7",
+    "code": "P3-OFICINA-07",
+    "type": "Oficina",
+    "order": 9,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-oficina-08",
+    "floor": 3,
+    "name": "Piso 3 - Oficina 8",
+    "code": "P3-OFICINA-08",
+    "type": "Oficina",
+    "order": 10,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-meeting-room-01",
+    "floor": 3,
+    "name": "Piso 3 - Meeting Room 1",
+    "code": "P3-MEETING-ROOM-01",
+    "type": "Meeting Room",
+    "order": 11,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-meeting-room-02",
+    "floor": 3,
+    "name": "Piso 3 - Meeting Room 2",
+    "code": "P3-MEETING-ROOM-02",
+    "type": "Meeting Room",
+    "order": 12,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-meeting-room-03",
+    "floor": 3,
+    "name": "Piso 3 - Meeting Room 3",
+    "code": "P3-MEETING-ROOM-03",
+    "type": "Meeting Room",
+    "order": 13,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-meeting-room-04",
+    "floor": 3,
+    "name": "Piso 3 - Meeting Room 4",
+    "code": "P3-MEETING-ROOM-04",
+    "type": "Meeting Room",
+    "order": 14,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-laboratorio-01",
+    "floor": 3,
+    "name": "Piso 3 - Laboratorio 1",
+    "code": "P3-LABORATORIO-01",
+    "type": "Laboratorio",
+    "order": 15,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-laboratorio-02",
+    "floor": 3,
+    "name": "Piso 3 - Laboratorio 2",
+    "code": "P3-LABORATORIO-02",
+    "type": "Laboratorio",
+    "order": 16,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p3-laboratorio-03",
+    "floor": 3,
+    "name": "Piso 3 - Laboratorio 3",
+    "code": "P3-LABORATORIO-03",
+    "type": "Laboratorio",
+    "order": 17,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-training-roo-01",
+    "floor": 4,
+    "name": "Piso 4 - Training Room 1",
+    "code": "P4-TRAINING-ROO-01",
+    "type": "Training Room",
+    "order": 1,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-training-roo-02",
+    "floor": 4,
+    "name": "Piso 4 - Training Room 2",
+    "code": "P4-TRAINING-ROO-02",
+    "type": "Training Room",
+    "order": 2,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-01-01",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 1",
+    "code": "P4-B4-OF-01-01",
+    "type": "B4-OF-01",
+    "order": 3,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-02-02",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 2",
+    "code": "P4-B4-OF-02-02",
+    "type": "B4-OF-02",
+    "order": 4,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-08-03",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 3",
+    "code": "P4-B4-OF-08-03",
+    "type": "B4-OF-08",
+    "order": 5,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-03-04",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 4",
+    "code": "P4-B4-OF-03-04",
+    "type": "B4-OF-03",
+    "order": 6,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-04-05",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 5",
+    "code": "P4-B4-OF-04-05",
+    "type": "B4-OF-04",
+    "order": 7,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-05-06",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 6",
+    "code": "P4-B4-OF-05-06",
+    "type": "B4-OF-05",
+    "order": 8,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-06-07",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 7",
+    "code": "P4-B4-OF-06-07",
+    "type": "B4-OF-06",
+    "order": 9,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mc-02-08",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 8",
+    "code": "P4-B4-MC-02-08",
+    "type": "B4-MC-02",
+    "order": 10,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-ms-01-09",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 9",
+    "code": "P4-B4-MS-01-09",
+    "type": "B4-MS-01",
+    "order": 11,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-09-10",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 10",
+    "code": "P4-B4-OF-09-10",
+    "type": "B4-OF-09",
+    "order": 12,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-10-11",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 11",
+    "code": "P4-B4-OF-10-11",
+    "type": "B4-OF-10",
+    "order": 13,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-11-12",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 12",
+    "code": "P4-B4-OF-11-12",
+    "type": "B4-OF-11",
+    "order": 14,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-12-13",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 13",
+    "code": "P4-B4-OF-12-13",
+    "type": "B4-OF-12",
+    "order": 15,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-ms-02-14",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 14",
+    "code": "P4-B4-MS-02-14",
+    "type": "B4-MS-02",
+    "order": 16,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-ms-03-15",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 15",
+    "code": "P4-B4-MS-03-15",
+    "type": "B4-MS-03",
+    "order": 17,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-of-14-16",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 16",
+    "code": "P4-B4-OF-14-16",
+    "type": "B4-OF-14",
+    "order": 18,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-oficina-17",
+    "floor": 4,
+    "name": "Piso 4 - Oficina 17",
+    "code": "P4-OFICINA-17",
+    "type": "Oficina",
+    "order": 19,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mn-02-01",
+    "floor": 4,
+    "name": "Piso 4 - Meeting Room 1",
+    "code": "P4-B4-MN-02-01",
+    "type": "B4-MN-02",
+    "order": 20,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mn-03-02",
+    "floor": 4,
+    "name": "Piso 4 - Meeting Room 2",
+    "code": "P4-B4-MN-03-02",
+    "type": "B4-MN-03",
+    "order": 21,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mc-06-03",
+    "floor": 4,
+    "name": "Piso 4 - Meeting Room 3",
+    "code": "P4-B4-MC-06-03",
+    "type": "B4-MC-06",
+    "order": 22,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mc-01-04",
+    "floor": 4,
+    "name": "Piso 4 - Meeting Room 4",
+    "code": "P4-B4-MC-01-04",
+    "type": "B4-MC-01",
+    "order": 23,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mc-05-05",
+    "floor": 4,
+    "name": "Piso 4 - Meeting Room 5",
+    "code": "P4-B4-MC-05-05",
+    "type": "B4-MC-05",
+    "order": 24,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mc-04-06",
+    "floor": 4,
+    "name": "Piso 4 - Meeting Room 6",
+    "code": "P4-B4-MC-04-06",
+    "type": "B4-MC-04",
+    "order": 25,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-b4-mc-03-07",
+    "floor": 4,
+    "name": "Piso 4 - Meeting Room 7",
+    "code": "P4-B4-MC-03-07",
+    "type": "B4-MC-03",
+    "order": 26,
+    "active": true,
+    "notes": ""
+  },
+  {
+    "id": "p4-laboratorio-01",
+    "floor": 4,
+    "name": "Piso 4 - Laboratorio 1",
+    "code": "P4-LABORATORIO-01",
+    "type": "Laboratorio",
+    "order": 27,
+    "active": true,
+    "notes": ""
+  }
+]
