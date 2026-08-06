@@ -8,6 +8,45 @@
   <link rel="stylesheet" href="styles.css" />
   <link rel="manifest" href="manifest.json">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+  <style>
+    .visible-logout-btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      width:100%;
+      margin-top:14px;
+      padding:11px 14px;
+      border:1px solid #c93f4a;
+      border-radius:12px;
+      background:#fff5f6;
+      color:#a4212d;
+      font:inherit;
+      font-weight:700;
+      cursor:pointer;
+    }
+    .visible-logout-btn:hover{
+      background:#fde8ea;
+    }
+    .topbar-logout-btn{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:9px 13px;
+      border:1px solid #c93f4a;
+      border-radius:10px;
+      background:#fff5f6;
+      color:#a4212d;
+      font:inherit;
+      font-weight:700;
+      cursor:pointer;
+    }
+    @media (max-width: 768px){
+      .topbar-logout-btn{display:inline-flex;}
+    }
+  </style>
+
 </head>
 <body>
   <section id="authView" class="auth-shell">
@@ -45,12 +84,19 @@
         <div class="avatar" id="userInitials">U</div>
         <div><strong id="sidebarUser">Usuario</strong><span id="sidebarRole">Perfil</span></div>
       </div>
+      <button id="logoutSidebarBtn" class="visible-logout-btn" type="button">
+        <span aria-hidden="true">↪</span> Cerrar sesión
+      </button>
     </aside>
 
     <header class="topbar">
       <button id="menuBtn" class="icon-btn" aria-label="Abrir menú">☰</button>
       <div class="topbar-title"><p class="eyebrow" id="pageEyebrow">RESUMEN</p><h1 id="pageTitle">Inicio</h1></div>
-      <div class="top-actions"><span id="todayCompact"></span><button id="quickRunBtn" class="btn primary compact">+ Nuevo recorrido</button></div>
+      <div class="top-actions">
+        <span id="todayCompact"></span>
+        <button id="quickRunBtn" class="btn primary compact">+ Nuevo recorrido</button>
+        <button id="logoutTopBtn" class="topbar-logout-btn" type="button">Salir</button>
+      </div>
     </header>
 
     <main class="main-content">
@@ -174,5 +220,16 @@
   <script src="https://cdn.jsdelivr.net/npm/exceljs@4.4.0/dist/exceljs.min.js"></script>
   <script src="supabase-config.js"></script>
   <script src="app.js"></script>
+  <script>
+    (() => {
+      const triggerExistingLogout = () => {
+        const existingLogout = document.getElementById('logoutBtn');
+        if (existingLogout) existingLogout.click();
+      };
+
+      document.getElementById('logoutSidebarBtn')?.addEventListener('click', triggerExistingLogout);
+      document.getElementById('logoutTopBtn')?.addEventListener('click', triggerExistingLogout);
+    })();
+  </script>
 </body>
 </html>
