@@ -3,129 +3,155 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <meta name="theme-color" content="#244f77" />
+  <meta name="theme-color" content="#173f67" />
   <title>Control de recorridos</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <section id="authView" class="auth-shell">
-    <form id="loginForm" class="auth-card card">
-      <p class="eyebrow">CONTROL OPERATIVO</p>
-      <h1>Recorridos de limpieza</h1>
-      <p class="muted">Ingrese con su cuenta autorizada.</p>
-      <label>Correo electrónico<input id="loginEmail" type="email" autocomplete="email" required></label>
-      <label>Contraseña<input id="loginPassword" type="password" autocomplete="current-password" minlength="6" required></label>
-      <button class="btn primary full" type="submit">Ingresar</button>
-      <p id="loginError" class="error-text"></p>
-    </form>
-  </section>
-  <div id="appShell" class="hidden">
-  <header class="topbar">
-    <div>
-      <p class="eyebrow">CONTROL OPERATIVO</p>
-      <h1>Recorridos de limpieza</h1>
+    <div class="login-brand">
+      <div class="brand-mark">CR</div>
+      <div><span>CONTROL OPERATIVO</span><strong>Recorridos de limpieza</strong></div>
     </div>
-    <button id="menuBtn" class="icon-btn" aria-label="Abrir menú">☰</button>
-  </header>
+    <form id="loginForm" class="auth-card">
+      <p class="eyebrow">ACCESO SEGURO</p>
+      <h1>Bienvenida</h1>
+      <p class="muted">Ingresa para registrar recorridos, revisar pendientes y consultar resultados.</p>
+      <label>Correo electrónico<input id="loginEmail" type="email" autocomplete="email" placeholder="nombre@correo.com" required></label>
+      <label>Contraseña<input id="loginPassword" type="password" autocomplete="current-password" placeholder="••••••••" minlength="6" required></label>
+      <button class="btn primary full large" type="submit">Ingresar</button>
+      <p id="loginError" class="error-text" aria-live="polite"></p>
+    </form>
+    <p class="login-foot">Gestión simple, trazable y profesional.</p>
+  </section>
 
-  <nav id="nav" class="nav hidden">
-    <button data-view="home" class="nav-link active">Recorrido</button>
-    <button data-view="pending" class="nav-link">Pendientes</button>
-    <button data-view="reports" class="nav-link">Reportes</button>
-    <button data-view="areas" class="nav-link admin-only">Administrar áreas</button>
-    <button data-view="settings" class="nav-link">Configuración</button>
-  </nav>
+  <div id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark small">CR</div>
+        <div><span>CONTROL</span><strong>Recorridos</strong></div>
+      </div>
+      <nav id="nav" class="nav">
+        <button data-view="dashboard" class="nav-link active"><span>▦</span>Inicio</button>
+        <button data-view="home" class="nav-link"><span>✓</span>Recorrido</button>
+        <button data-view="pending" class="nav-link"><span>◷</span>Pendientes</button>
+        <button data-view="reports" class="nav-link"><span>▥</span>Reportes</button>
+        <button data-view="areas" class="nav-link admin-only"><span>⌂</span>Áreas</button>
+        <button data-view="settings" class="nav-link"><span>⚙</span>Mi cuenta</button>
+      </nav>
+      <div class="sidebar-user">
+        <div class="avatar" id="userInitials">U</div>
+        <div><strong id="sidebarUser">Usuario</strong><span id="sidebarRole">Perfil</span></div>
+      </div>
+    </aside>
 
-  <main class="container">
-    <section id="homeView" class="view">
-      <div class="welcome card">
-        <div>
-          <span class="label">Usuario</span>
-          <strong id="currentUser">Coordinación</strong>
+    <header class="topbar">
+      <button id="menuBtn" class="icon-btn" aria-label="Abrir menú">☰</button>
+      <div class="topbar-title"><p class="eyebrow" id="pageEyebrow">RESUMEN</p><h1 id="pageTitle">Inicio</h1></div>
+      <div class="top-actions"><span id="todayCompact"></span><button id="quickRunBtn" class="btn primary compact">+ Nuevo recorrido</button></div>
+    </header>
+
+    <main class="main-content">
+      <section id="dashboardView" class="view">
+        <div class="hero-panel">
+          <div>
+            <p class="eyebrow inverse">CONTROL DEL DÍA</p>
+            <h2>Hola, <span id="dashboardName">Usuario</span></h2>
+            <p id="dashboardDate">Revisa el avance del edificio y continúa donde lo dejaste.</p>
+          </div>
+          <button id="startFromDashboard" class="btn light large">Iniciar recorrido</button>
         </div>
-        <div>
-          <span class="label">Fecha</span>
-          <strong id="todayLabel"></strong>
+
+        <div id="dashboardKpis" class="metric-grid"></div>
+
+        <div class="dashboard-grid">
+          <section class="panel">
+            <div class="panel-head"><div><p class="eyebrow">AVANCE DEL EDIFICIO</p><h2>Progreso por piso</h2></div><button data-go="home" class="text-btn">Ver recorrido →</button></div>
+            <div id="dashboardFloors" class="dashboard-floor-list"></div>
+          </section>
+          <section class="panel">
+            <div class="panel-head"><div><p class="eyebrow">ATENCIÓN</p><h2>Resumen de pendientes</h2></div><button data-go="pending" class="text-btn">Ver todos →</button></div>
+            <div id="dashboardPending" class="summary-list"></div>
+          </section>
         </div>
-      </div>
-      <div class="section-title">
-        <div><p class="eyebrow">EDIFICIO</p><h2>Seleccione un piso</h2></div>
-        <button id="resetDayBtn" class="btn secondary small">Nuevo recorrido</button>
-      </div>
-      <div id="floorGrid" class="floor-grid"></div>
-      <section id="floorDetail" class="hidden">
-        <div class="section-title sticky-title">
-          <button id="backFloors" class="btn ghost">← Pisos</button>
-          <div><p class="eyebrow" id="floorEyebrow"></p><h2 id="floorTitle"></h2></div>
-        </div>
-        <div id="areaList" class="area-list"></div>
       </section>
-    </section>
 
-    <section id="pendingView" class="view hidden">
-      <div class="section-title"><div><p class="eyebrow">SEGUIMIENTO</p><h2>Pendientes por retomar</h2></div></div>
-      <div id="pendingList" class="area-list"></div>
-    </section>
+      <section id="homeView" class="view hidden">
+        <div class="page-intro">
+          <div><p class="eyebrow">RECORRIDO ACTIVO</p><h2>Selecciona un piso</h2><p class="muted">Marca cada espacio conforme avanzas. Los cambios se guardan inmediatamente.</p></div>
+          <button id="resetDayBtn" class="btn secondary">Nuevo recorrido</button>
+        </div>
+        <div id="floorGrid" class="floor-grid"></div>
+        <section id="floorDetail" class="hidden">
+          <div class="floor-detail-head">
+            <button id="backFloors" class="back-btn">← Volver a pisos</button>
+            <div><p class="eyebrow" id="floorEyebrow"></p><h2 id="floorTitle"></h2><p class="muted" id="floorSubtitle"></p></div>
+          </div>
+          <div id="areaList" class="area-list"></div>
+        </section>
+      </section>
 
-    <section id="reportsView" class="view hidden">
-      <div class="section-title">
-        <div><p class="eyebrow">ANÁLISIS</p><h2>Reportes</h2></div>
-        <button id="exportCsv" class="btn primary">Descargar CSV</button>
-      </div>
-      <div id="kpis" class="kpi-grid"></div>
-      <div class="card filters">
-        <label>Desde<input id="dateFrom" type="date"></label>
-        <label>Hasta<input id="dateTo" type="date"></label>
-        <label>Piso<select id="reportFloor"><option value="">Todos</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
-        <button id="applyFilters" class="btn secondary">Aplicar</button>
-      </div>
-      <div class="table-wrap card"><table><thead><tr><th>Fecha</th><th>Hora</th><th>Piso</th><th>Área</th><th>Estado</th><th>Responsable</th><th>Observación</th></tr></thead><tbody id="reportBody"></tbody></table></div>
-    </section>
+      <section id="pendingView" class="view hidden">
+        <div class="page-intro"><div><p class="eyebrow">SEGUIMIENTO</p><h2>Pendientes por retomar</h2><p class="muted">Áreas ocupadas, reprogramadas o que requieren atención.</p></div></div>
+        <div id="pendingList" class="area-list"></div>
+      </section>
 
-    <section id="areasView" class="view hidden admin-only">
-      <div class="section-title">
-        <div><p class="eyebrow">ADMINISTRACIÓN</p><h2>Catálogo de áreas</h2></div>
-        <button id="addAreaBtn" class="btn primary">+ Agregar área</button>
-      </div>
-      <div class="card filters">
-        <label>Piso<select id="areaFloorFilter"><option value="">Todos</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
-        <label>Buscar<input id="areaSearch" placeholder="Nombre, código o tipo"></label>
-      </div>
-      <div class="table-wrap card"><table><thead><tr><th>Orden</th><th>Piso</th><th>Área</th><th>Código</th><th>Tipo</th><th>Estado</th><th></th></tr></thead><tbody id="areasBody"></tbody></table></div>
-    </section>
+      <section id="reportsView" class="view hidden">
+        <div class="page-intro"><div><p class="eyebrow">ANÁLISIS</p><h2>Reportes y cumplimiento</h2><p class="muted">Consulta resultados por fecha y piso, y descarga el detalle para Excel.</p></div><button id="exportCsv" class="btn primary">Descargar Excel/CSV</button></div>
+        <div id="kpis" class="metric-grid"></div>
+        <div class="panel filters-panel">
+          <label>Desde<span class="input-wrap"><input id="dateFrom" type="date"></span></label>
+          <label>Hasta<span class="input-wrap"><input id="dateTo" type="date"></span></label>
+          <label>Piso<select id="reportFloor"><option value="">Todos los pisos</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+          <button id="applyFilters" class="btn secondary">Aplicar filtros</button>
+        </div>
+        <div class="panel table-wrap"><table><thead><tr><th>Fecha</th><th>Hora</th><th>Piso</th><th>Área</th><th>Estado</th><th>Responsable</th><th>Observación</th></tr></thead><tbody id="reportBody"></tbody></table></div>
+      </section>
 
-    <section id="settingsView" class="view hidden">
-      <div class="section-title"><div><p class="eyebrow">AJUSTES</p><h2>Configuración</h2></div></div>
-      <div class="card settings-card">
-        <label>Nombre del usuario<input id="userName" disabled></label>
-        <label>Perfil<input id="userRole" disabled></label>
-        <label>Correo<input id="userEmail" disabled></label>
-        <button id="logoutBtn" class="btn secondary">Cerrar sesión</button>
-        <p class="muted">Los datos se guardan en Supabase y están protegidos mediante RLS.</p>
-      </div>
-    </section>
-  </main>
+      <section id="areasView" class="view hidden admin-only">
+        <div class="page-intro"><div><p class="eyebrow">ADMINISTRACIÓN</p><h2>Catálogo de áreas</h2><p class="muted">Agrega, corrige, ordena o desactiva espacios sin perder el historial.</p></div><button id="addAreaBtn" class="btn primary">+ Agregar área</button></div>
+        <div class="panel filters-panel two">
+          <label>Piso<select id="areaFloorFilter"><option value="">Todos los pisos</option><option>1</option><option>2</option><option>3</option><option>4</option></select></label>
+          <label>Buscar<input id="areaSearch" placeholder="Nombre, código o tipo"></label>
+        </div>
+        <div class="panel table-wrap"><table><thead><tr><th>Orden</th><th>Piso</th><th>Área</th><th>Código</th><th>Tipo</th><th>Estado</th><th>Acciones</th></tr></thead><tbody id="areasBody"></tbody></table></div>
+      </section>
+
+      <section id="settingsView" class="view hidden">
+        <div class="page-intro"><div><p class="eyebrow">MI CUENTA</p><h2>Información del usuario</h2></div></div>
+        <div class="panel settings-card">
+          <div class="profile-head"><div class="avatar large-avatar" id="settingsInitials">U</div><div><strong id="settingsName">Usuario</strong><span id="settingsRole">Perfil</span></div></div>
+          <label>Nombre<input id="userName" disabled></label>
+          <label>Perfil<input id="userRole" disabled></label>
+          <label>Correo<input id="userEmail" disabled></label>
+          <button id="logoutBtn" class="btn danger-soft">Cerrar sesión</button>
+          <p class="security-note">🔒 La información se guarda en Supabase y está protegida mediante políticas de acceso.</p>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <dialog id="statusDialog">
     <form method="dialog" class="dialog-card" id="statusForm">
-      <button class="dialog-close" value="cancel">×</button>
+      <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
       <p class="eyebrow" id="statusAreaCode"></p><h3 id="statusAreaName"></h3>
       <input type="hidden" id="statusAreaId">
+      <p class="dialog-help">Selecciona el resultado de esta visita.</p>
       <div class="status-grid">
-        <button type="button" data-status="Limpio" class="status-btn clean">✓ Limpio</button>
-        <button type="button" data-status="Área ocupada" class="status-btn occupied">Área ocupada</button>
-        <button type="button" data-status="Reprogramado" class="status-btn rescheduled">Reprogramar</button>
-        <button type="button" data-status="Requiere atención" class="status-btn attention">Requiere atención</button>
+        <button type="button" data-status="Limpio" class="status-btn clean"><span>✓</span><strong>Limpio</strong><small>Trabajo finalizado</small></button>
+        <button type="button" data-status="Área ocupada" class="status-btn occupied"><span>●</span><strong>Área ocupada</strong><small>No fue posible ingresar</small></button>
+        <button type="button" data-status="Reprogramado" class="status-btn rescheduled"><span>↻</span><strong>Reprogramar</strong><small>Volver más tarde</small></button>
+        <button type="button" data-status="Requiere atención" class="status-btn attention"><span>!</span><strong>Requiere atención</strong><small>Reportar una condición</small></button>
       </div>
       <label>Observación<textarea id="statusNote" rows="3" placeholder="Ej.: reunión en curso; regresar a las 2:30 p. m."></textarea></label>
-      <label>Retomar a las<input id="rescheduleTime" type="time"></label>
-      <button type="button" id="saveStatus" class="btn primary full">Guardar estado</button>
+      <label>Retomar a las<span class="input-wrap"><input id="rescheduleTime" type="time"></span></label>
+      <button type="button" id="saveStatus" class="btn primary full large">Guardar estado</button>
     </form>
   </dialog>
 
   <dialog id="areaDialog">
     <form method="dialog" class="dialog-card" id="areaForm">
-      <button class="dialog-close" value="cancel">×</button>
+      <button class="dialog-close" value="cancel" aria-label="Cerrar">×</button>
       <p class="eyebrow">CATÁLOGO</p><h3 id="areaDialogTitle">Agregar área</h3>
       <input type="hidden" id="editAreaId">
       <div class="form-grid">
@@ -137,12 +163,11 @@
         <label class="span-2">Observaciones<textarea id="editNotes" rows="2"></textarea></label>
         <label class="check"><input id="editActive" type="checkbox" checked> Área activa</label>
       </div>
-      <button type="button" id="saveArea" class="btn primary full">Guardar área</button>
+      <button type="button" id="saveArea" class="btn primary full large">Guardar área</button>
     </form>
   </dialog>
 
-  <div id="toast" class="toast hidden"></div>
-  </div>
+  <div id="toast" class="toast hidden" aria-live="polite"></div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.8/dist/umd/supabase.min.js"></script>
   <script src="supabase-config.js"></script>
   <script src="app.js"></script>
