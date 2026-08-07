@@ -140,7 +140,106 @@ async function loadReports() {
 
   renderReports(rows);
 }
-function renderReports(rows){const clean=rows.filter(x=>x.status==='Limpio').length,pend=rows.length-clean,rate=rows.length?Math.round(clean/rows.length*100):0;$('#kpis').innerHTML=[['Cumplimiento',rate+'%','registros limpios'],['Registros',rows.length,'movimientos'],['Limpios',clean,'completados'],['Pendientes',pend,'otros estados']].map(x=>`<article class="metric-card"><span class="label">${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></article>`).join('');$('#reportBody').innerHTML=rows.map(l=>{const d=new Date(l.recorded_at);return `<tr><td>${d.toLocaleDateString('es-CR')}</td><td>${d.toLocaleTimeString('es-CR',{hour:'2-digit',minute:'2-digit'})}</td><td>${l.crl_areas?.floor??''}</td><td>${escapeHtml(l.crl_areas?.name||'')}</td><td><span class="state-pill ${statusClass(l.status)}">${l.status}</span></td><td>${escapeHtml(l.crl_profiles?.full_name||session.user.email)}</td><td>${escapeHtml(l.note||'')}</td></tr>`}).join('');window.reportRows=rows}
+ffunction renderReports(rows){
+
+  const floorFilter = $('#reportFloor').value;
+
+  // Áreas que corresponden al filtro seleccionado
+  const selectedAreas = activeAreas().filter(
+    a => !floorFilter || String(a.floor) === floorFilter
+  );
+
+  // Último registro de cada área dentro del período
+  const latestByArea = {};
+
+  rows
+    .slice()
+    .sort((a,b) => new Date(a.recorded_at) - new Date(b.recorded_at))
+    .forEach(r => {
+      latestByArea[r.area_id] = r;
+    });
+
+  const totalAreas = selectedAreas.length;
+
+  const clean = selectedAreas.filter(
+    a => latestByArea[a.id]?.status === 'Limpio'
+  ).length;
+
+  const occupied = selectedAreas.filter(
+    a => latestByArea[a.id]?.status === 'Área ocupada'
+  ).length;
+
+  const rescheduled = selectedAreas.filter(
+    a => latestByArea[a.id]?.status === 'Reprogramado'
+  ).length;
+
+  const attention = selectedAreas.filter(
+    a => latestByArea[a.id]?.status === 'Requiere atención'
+  ).length;
+
+  const visited = Object.keys(latestByArea).length;
+
+  // Incluye tanto áreas con incidencia como áreas aún no visitadas
+  const pending = totalAreas - clean;
+
+  const unvisited = Math.max(totalAreas - visited, 0);
+
+  const rate = totalAreas
+    ? Math.round((clean / totalAreas) * 100)
+    : 0;
+
+  $('#kpis').innerHTML = [
+    ['Cumplimiento', rate + '%', clean + ' de ' + totalAreas + ' áreas'],
+    ['Áreas totales', totalAreas, 'según filtro'],
+    ['Limpias', clean, 'completadas'],
+    ['Pendientes', pending, unvisited + ' sin revisar']
+  ].map(x => `
+    <article class="metric-card">
+      <span class="label">${x[0]}</span>
+      <strong>${x[1]}</strong>
+      <small>${x[2]}</small>
+    </article>
+  `).join('');
+
+  $('#reportBody').innerHTML = rows.map(l => {
+    const d = new Date(l.recorded_at);
+
+    return `
+      <tr>
+        <td>${d.toLocaleDateString('es-CR')}</td>
+        <td>${d.toLocaleTimeString('es-CR',{
+          hour:'2-digit',
+          minute:'2-digit'
+        })}</td>
+        <td>${l.crl_areas?.floor ?? ''}</td>
+        <td>${escapeHtml(l.crl_areas?.name || '')}</td>
+        <td>
+          <span class="state-pill ${statusClass(l.status)}">
+            ${l.status}
+          </span>
+        </td>
+        <td>${escapeHtml(
+          l.crl_profiles?.full_name || session.user.email
+        )}</td>
+        <td>${escapeHtml(l.note || '')}</td>
+      </tr>
+    `;
+  }).join('');
+
+  window.reportRows = rows;
+
+  // Guardamos estos valores para que el XLSX use el mismo cálculo
+  window.reportSummary = {
+    totalAreas,
+    clean,
+    occupied,
+    rescheduled,
+    attention,
+    pending,
+    unvisited,
+    rate: totalAreas ? clean / totalAreas : 0
+  };
+}
 async function exportXlsx(){
   const rows=window.reportRows||[];
   if(!rows.length)return toast('No hay registros para exportar');
@@ -152,12 +251,15 @@ async function exportXlsx(){
     wb.modified=new Date();wb.title='Reporte de recorridos de limpieza';wb.subject='Cumplimiento y detalle de limpieza';
     const navy='17324D',blue='2F6690',lightBlue='EAF2F8',ice='F5F8FB',white='FFFFFF',text='263238',muted='607D8B',amber='D99A2B',red='B54747',gray='D9E2EA';
     const thin={style:'thin',color:{argb:gray}};
-    const clean=rows.filter(r=>r.status==='Limpio').length;
-    const occupied=rows.filter(r=>r.status==='Área ocupada').length;
-    const rescheduled=rows.filter(r=>r.status==='Reprogramado').length;
-    const attention=rows.filter(r=>r.status==='Requiere atención').length;
-    const pending=rows.length-clean;
-    const rate=rows.length?clean/rows.length:0;
+const summary = window.reportSummary || {};
+
+const clean = summary.clean || 0;
+const occupied = summary.occupied || 0;
+const rescheduled = summary.rescheduled || 0;
+const attention = summary.attention || 0;
+const pending = summary.pending || 0;
+const rate = summary.rate || 0;
+const totalAreas = summary.totalAreas || rows.length;
     const dateFrom=$('#dateFrom').value||'';const dateTo=$('#dateTo').value||'';const floorFilter=$('#reportFloor').value||'Todos';
     const dates=rows.map(r=>new Date(r.recorded_at)).sort((a,b)=>a-b);
     const period=dateFrom||dateTo?`${dateFrom||'Inicio'} al ${dateTo||'Hoy'}`:`${dates[0].toLocaleDateString('es-CR')} al ${dates.at(-1).toLocaleDateString('es-CR')}`;
@@ -167,7 +269,7 @@ async function exportXlsx(){
     dash.mergeCells('B2:F3');const title=dash.getCell('B2');title.value='EMERSON CLEANING CONTROL';title.font={bold:true,size:20,color:{argb:white}};title.alignment={vertical:'middle',horizontal:'left'};title.fill={type:'pattern',pattern:'solid',fgColor:{argb:navy}};
     dash.mergeCells('B4:F4');dash.getCell('B4').value=`Reporte del período: ${period}  |  Piso: ${floorFilter}`;dash.getCell('B4').font={size:11,color:{argb:white}};dash.getCell('B4').fill={type:'pattern',pattern:'solid',fgColor:{argb:blue}};dash.getCell('B4').alignment={vertical:'middle'};
     dash.getRow(2).height=28;dash.getRow(3).height=16;dash.getRow(4).height=22;
-    const kpis=[['B6','Cumplimiento',rate,'0%'],['C6','Registros',rows.length,'0'],['D6','Limpios',clean,'0'],['E6','Pendientes',pending,'0'],['F6','Áreas ocupadas',occupied,'0']];
+    const kpis=[['B6','Cumplimiento',rate,'0%'],['C['C6','Áreas totales',totalAreas,'0']6','Registros',rows.length,'0'],['D6','Limpios',clean,'0'],['E6','Pendientes',pending,'0'],['F6','Áreas ocupadas',occupied,'0']];
     for(const [cell,label,value,fmt] of kpis){const c=dash.getCell(cell);c.value=label;c.font={bold:true,size:10,color:{argb:muted}};c.alignment={horizontal:'center'};const v=dash.getCell(cell.replace('6','7'));v.value=value;v.numFmt=fmt;v.font={bold:true,size:20,color:{argb:navy}};v.alignment={horizontal:'center'};for(const r of [6,7,8]){const x=dash.getCell(`${cell[0]}${r}`);x.fill={type:'pattern',pattern:'solid',fgColor:{argb:ice}};x.border={top:thin,left:thin,bottom:thin,right:thin}}dash.getCell(cell.replace('6','8')).value=label==='Cumplimiento'?'del total filtrado':label==='Registros'?'movimientos registrados':'estado del período';dash.getCell(cell.replace('6','8')).font={size:9,color:{argb:muted}};dash.getCell(cell.replace('6','8')).alignment={horizontal:'center'}}
     dash.getRow(7).height=30;
     dash.mergeCells('B10:F10');dash.getCell('B10').value='RESUMEN POR PISO';dash.getCell('B10').font={bold:true,size:12,color:{argb:white}};dash.getCell('B10').fill={type:'pattern',pattern:'solid',fgColor:{argb:navy}};
