@@ -45,6 +45,19 @@
     @media (max-width: 768px){
       .topbar-logout-btn{display:inline-flex;}
     }
+    /* Report KPI drill-down */
+    #reportsView #kpis .metric-card{cursor:pointer;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease;}
+    #reportsView #kpis .metric-card:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(23,63,103,.10);}
+    #reportsView #kpis .metric-card.kpi-active{border-color:#2f6690;box-shadow:0 0 0 2px rgba(47,102,144,.10);}
+    .report-kpi-detail{margin:14px 0 18px;padding:18px 20px;}
+    .report-kpi-detail-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;}
+    .report-kpi-detail-head h3{margin:0;}
+    .report-kpi-list{display:grid;gap:8px;}
+    .report-kpi-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:10px 12px;border:1px solid #d9e2ea;border-radius:10px;background:#fff;}
+    .report-kpi-row small{display:block;color:#607d8b;margin-top:3px;}
+    .report-kpi-empty{color:#607d8b;margin:0;}
+    @media (max-width:768px){.report-kpi-detail{padding:14px}.report-kpi-row{grid-template-columns:1fr}.report-kpi-row .state-pill{justify-self:start}}
+
   </style>
 
 </head>
@@ -147,6 +160,7 @@
       <section id="reportsView" class="view hidden">
         <div class="page-intro"><div><p class="eyebrow">ANÁLISIS</p><h2>Reportes y cumplimiento</h2><p class="muted">Consulta resultados por fecha y piso, y descarga un reporte XLSX profesional con dashboard y detalle.</p></div><button id="exportXlsx" class="btn primary">Descargar reporte XLSX</button></div>
         <div id="kpis" class="metric-grid"></div>
+        <section id="reportKpiDetail" class="panel report-kpi-detail hidden" aria-live="polite"></section>
         <div class="panel filters-panel">
           <label>Desde<span class="input-wrap"><input id="dateFrom" type="date"></span></label>
           <label>Hasta<span class="input-wrap"><input id="dateTo" type="date"></span></label>
@@ -232,6 +246,6 @@
     document.getElementById('logoutTopBtn')?.addEventListener('click', triggerExistingLogout);
   })();
 </script>
-
+\n<script>\n  (() => {\n    const kpis = document.getElementById('kpis');\n    const detail = document.getElementById('reportKpiDetail');\n    if (!kpis || !detail) return;\n    let openIndex = null;\n\n    const esc = (value) => String(value ?? '').replace(/[&<>\"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[m]));\n    const latestRows = () => {\n      const latest = {};\n      (window.reportRows || []).slice().sort((a,b) => new Date(a.recorded_at)-new Date(b.recorded_at)).forEach(r => latest[r.area_id] = r);\n      return latest;\n    };\n    const filteredAreas = () => {\n      const floor = document.getElementById('reportFloor')?.value || '';\n      if (typeof activeAreas !== 'function') return [];\n      return activeAreas().filter(a => !floor || String(a.floor) === floor);\n    };\n    const statePill = (status) => `<span class="state-pill ${typeof statusClass==='function'?statusClass(status):''}">${esc(status)}</span>`;\n\n    function render(index){\n      const cards = [...kpis.querySelectorAll('.metric-card')];\n      cards.forEach((c,i)=>c.classList.toggle('kpi-active',i===index));\n      if (openIndex === index && !detail.classList.contains('hidden')) { detail.classList.add('hidden'); openIndex=null; cards.forEach(c=>c.classList.remove('kpi-active')); return; }\n      openIndex=index;\n      const areas=filteredAreas(), latest=latestRows();\n      let title='', items=[];\n      if(index===0){\n        const clean=areas.filter(a=>latest[a.id]?.status==='Limpio').length;\n        const pending=areas.length-clean;\n        title='Resumen de cumplimiento';\n        detail.innerHTML=`<div class="report-kpi-detail-head"><div><p class="eyebrow">DETALLE</p><h3>${clean} de ${areas.length} áreas limpias</h3></div><strong>${areas.length?Math.round(clean/areas.length*100):0}%</strong></div><div class="report-kpi-list"><div class="report-kpi-row"><div><strong>Áreas limpias</strong></div><strong>${clean}</strong></div><div class="report-kpi-row"><div><strong>Pendientes</strong><small>Incluye áreas sin revisar o con otro estado.</small></div><strong>${pending}</strong></div></div>`;\n        detail.classList.remove('hidden'); return;\n      }\n      if(index===1){ title='Todas las áreas'; items=areas.map(a=>({a,l:latest[a.id],status:latest[a.id]?.status||'Sin revisar'})); }\n      if(index===2){ title='Áreas limpias'; items=areas.filter(a=>latest[a.id]?.status==='Limpio').map(a=>({a,l:latest[a.id],status:'Limpio'})); }\n      if(index===3){ title='Áreas pendientes'; items=areas.filter(a=>latest[a.id]?.status!=='Limpio').map(a=>({a,l:latest[a.id],status:latest[a.id]?.status||'Sin revisar'})); }\n      detail.innerHTML=`<div class="report-kpi-detail-head"><div><p class="eyebrow">DETALLE</p><h3>${esc(title)} · ${items.length}</h3></div></div><div class="report-kpi-list">${items.length?items.map(({a,l,status})=>`<div class="report-kpi-row"><div><strong>${esc(a.name)}</strong><small>Piso ${esc(a.floor)}${l?.crl_profiles?.full_name?' · '+esc(l.crl_profiles.full_name):''}${l?.recorded_at?' · '+new Date(l.recorded_at).toLocaleTimeString('es-CR',{hour:'2-digit',minute:'2-digit'}):''}</small></div>${statePill(status)}</div>`).join(''):'<p class="report-kpi-empty">No hay áreas en esta categoría.</p>'}</div>`;\n      detail.classList.remove('hidden');\n    }\n\n    kpis.addEventListener('click', e => { const card=e.target.closest('.metric-card'); if(!card)return; const cards=[...kpis.querySelectorAll('.metric-card')]; render(cards.indexOf(card)); });\n    document.getElementById('applyFilters')?.addEventListener('click',()=>{detail.classList.add('hidden');openIndex=null;});\n  })();\n</script>\n
 </body>
 </html>
