@@ -69,7 +69,50 @@ function renderAreaList(){const arr=activeAreas().filter(x=>x.floor===selectedFl
 window.openStatus=function(id){const a=areas.find(x=>x.id===id),l=latestFor(id);$('#statusAreaId').value=id;$('#statusAreaCode').textContent=a.code;$('#statusAreaName').textContent=a.name;$('#statusNote').value=l?.note||'';$('#rescheduleTime').value=l?.reschedule_time?.slice(0,5)||'';selectedStatus=l?.status||'';$$('.status-btn').forEach(b=>b.classList.toggle('selected',b.dataset.status===selectedStatus));$('#statusDialog').showModal()}
 async function saveStatus(){const areaId=$('#statusAreaId').value;if(!selectedStatus)return toast('Selecciona un estado');if(!currentRun)await createRun();const payload={run_id:currentRun?.id||null,area_id:areaId,user_id:session.user.id,status:selectedStatus,note:$('#statusNote').value.trim(),reschedule_time:$('#rescheduleTime').value||null};setBusy(true);const {data,error}=await sb.from('crl_cleaning_logs').insert(payload).select('*,crl_areas(name,code,floor,area_type)').single();setBusy(false);if(error)return toast('No se pudo guardar');logs.push(data);$('#statusDialog').close();renderAreaList();toast('Estado guardado')}
 function renderPending(){const items=activeAreas().map(a=>({a,l:latestFor(a.id)})).filter(x=>x.l&&x.l.status!=='Limpio');$('#pendingList').innerHTML=items.map(({a,l})=>`<article class="area-card"><div class="area-order">${a.floor}</div><div><p class="eyebrow">PISO ${a.floor} · ${escapeHtml(a.code)}</p><h3>${escapeHtml(a.name)}</h3><span class="area-meta">${escapeHtml(l.note||'Sin observación')}${l.reschedule_time?' · Retomar '+l.reschedule_time.slice(0,5):''}</span></div><button class="state-pill ${statusClass(l.status)}" onclick="openStatus('${a.id}')">${l.status}</button></article>`).join('')||'<div class="panel" style="padding:20px">No hay pendientes registrados hoy.</div>'}
-async function loadReports(){const from=$('#dateFrom').value,to=$('#dateTo').value,f=$('#reportFloor').value;let q=sb.from('crl_cleaning_logs').select('*,crl_areas(name,code,floor,area_type),crl_profiles(full_name)').order('recorded_at',{ascending:false}).limit(5000);if(from)q=q.gte('recorded_at',new Date(`${from}T00:00:00`).toISOString());if(to)q=q.lte('recorded_at',new Date(`${to}T23:59:59.999`).toISOString());const {data,error}=await q;if(error)return toast('No se pudo cargar el reporte');const rows=(data||[]).filter(r=>!f||String(r.crl_areas?.floor)===f);renderReports(rows)}
+function reportStartIso(dateStr) {
+  return dateStr
+    ? new Date(`${dateStr}T00:00:00.000-06:00`).toISOString()
+    : null;
+}
+
+function reportEndIso(dateStr) {
+  return dateStr
+    ? new Date(`${dateStr}T23:59:59.999-06:00`).toISOString()
+    : null;
+}
+
+async function loadReports() {
+  const from = $('#dateFrom').value;
+  const to = $('#dateTo').value;
+  const f = $('#reportFloor').value;
+
+  let q = sb
+    .from('crl_cleaning_logs')
+    .select('*,crl_areas(name,code,floor,area_type),crl_profiles(full_name)')
+    .order('recorded_at', { ascending: false })
+    .limit(5000);
+
+  if (from) {
+    q = q.gte('recorded_at', reportStartIso(from));
+  }
+
+  if (to) {
+    q = q.lte('recorded_at', reportEndIso(to));
+  }
+
+  const { data, error } = await q;
+
+  if (error) {
+    console.error(error);
+    return toast('No se pudo cargar el reporte');
+  }
+
+  const rows = (data || []).filter(
+    r => !f || String(r.crl_areas?.floor) === f
+  );
+
+  renderReports(rows);
+}
 function renderReports(rows){const clean=rows.filter(x=>x.status==='Limpio').length,pend=rows.length-clean,rate=rows.length?Math.round(clean/rows.length*100):0;$('#kpis').innerHTML=[['Cumplimiento',rate+'%','registros limpios'],['Registros',rows.length,'movimientos'],['Limpios',clean,'completados'],['Pendientes',pend,'otros estados']].map(x=>`<article class="metric-card"><span class="label">${x[0]}</span><strong>${x[1]}</strong><small>${x[2]}</small></article>`).join('');$('#reportBody').innerHTML=rows.map(l=>{const d=new Date(l.recorded_at);return `<tr><td>${d.toLocaleDateString('es-CR')}</td><td>${d.toLocaleTimeString('es-CR',{hour:'2-digit',minute:'2-digit'})}</td><td>${l.crl_areas?.floor??''}</td><td>${escapeHtml(l.crl_areas?.name||'')}</td><td><span class="state-pill ${statusClass(l.status)}">${l.status}</span></td><td>${escapeHtml(l.crl_profiles?.full_name||session.user.email)}</td><td>${escapeHtml(l.note||'')}</td></tr>`}).join('');window.reportRows=rows}
 async function exportXlsx(){
   const rows=window.reportRows||[];
