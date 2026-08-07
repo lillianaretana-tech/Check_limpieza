@@ -86,9 +86,10 @@ async function loadReports() {
   const to = $('#dateTo').value;
   const f = $('#reportFloor').value;
 
+  // 1. Cargar registros + áreas
   let q = sb
     .from('crl_cleaning_logs')
-    .select('*,crl_areas(name,code,floor,area_type),crl_profiles(full_name)')
+    .select('*,crl_areas(name,code,floor,area_type)')
     .order('recorded_at', { ascending: false })
     .limit(5000);
 
@@ -103,11 +104,37 @@ async function loadReports() {
   const { data, error } = await q;
 
   if (error) {
-    console.error(error);
+    console.error('Error cargando registros:', error);
     return toast('No se pudo cargar el reporte');
   }
 
-  const rows = (data || []).filter(
+  let rows = data || [];
+
+  // 2. Obtener nombres de los responsables
+  const userIds = [...new Set(rows.map(r => r.user_id).filter(Boolean))];
+
+  if (userIds.length) {
+    const { data: profiles, error: profilesError } = await sb
+      .from('crl_profiles')
+      .select('id,full_name')
+      .in('id', userIds);
+
+    if (!profilesError) {
+      const names = Object.fromEntries(
+        (profiles || []).map(p => [p.id, p.full_name])
+      );
+
+      rows = rows.map(r => ({
+        ...r,
+        crl_profiles: {
+          full_name: names[r.user_id] || 'Usuario'
+        }
+      }));
+    }
+  }
+
+  // 3. Filtrar por piso
+  rows = rows.filter(
     r => !f || String(r.crl_areas?.floor) === f
   );
 
