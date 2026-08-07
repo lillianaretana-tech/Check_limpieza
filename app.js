@@ -140,7 +140,7 @@ async function loadReports() {
 
   renderReports(rows);
 }
-ffunction renderReports(rows){
+function renderReports(rows){
 
   const floorFilter = $('#reportFloor').value;
 
@@ -269,7 +269,13 @@ const totalAreas = summary.totalAreas || rows.length;
     dash.mergeCells('B2:F3');const title=dash.getCell('B2');title.value='EMERSON CLEANING CONTROL';title.font={bold:true,size:20,color:{argb:white}};title.alignment={vertical:'middle',horizontal:'left'};title.fill={type:'pattern',pattern:'solid',fgColor:{argb:navy}};
     dash.mergeCells('B4:F4');dash.getCell('B4').value=`Reporte del período: ${period}  |  Piso: ${floorFilter}`;dash.getCell('B4').font={size:11,color:{argb:white}};dash.getCell('B4').fill={type:'pattern',pattern:'solid',fgColor:{argb:blue}};dash.getCell('B4').alignment={vertical:'middle'};
     dash.getRow(2).height=28;dash.getRow(3).height=16;dash.getRow(4).height=22;
-    const kpis=[['B6','Cumplimiento',rate,'0%'],['C['C6','Áreas totales',totalAreas,'0']6','Registros',rows.length,'0'],['D6','Limpios',clean,'0'],['E6','Pendientes',pending,'0'],['F6','Áreas ocupadas',occupied,'0']];
+   const kpis=[
+  ['B6','Cumplimiento',rate,'0%'],
+  ['C6','Áreas totales',totalAreas,'0'],
+  ['D6','Limpios',clean,'0'],
+  ['E6','Pendientes',pending,'0'],
+  ['F6','Áreas ocupadas',occupied,'0']
+];
     for(const [cell,label,value,fmt] of kpis){const c=dash.getCell(cell);c.value=label;c.font={bold:true,size:10,color:{argb:muted}};c.alignment={horizontal:'center'};const v=dash.getCell(cell.replace('6','7'));v.value=value;v.numFmt=fmt;v.font={bold:true,size:20,color:{argb:navy}};v.alignment={horizontal:'center'};for(const r of [6,7,8]){const x=dash.getCell(`${cell[0]}${r}`);x.fill={type:'pattern',pattern:'solid',fgColor:{argb:ice}};x.border={top:thin,left:thin,bottom:thin,right:thin}}dash.getCell(cell.replace('6','8')).value=label==='Cumplimiento'?'del total filtrado':label==='Registros'?'movimientos registrados':'estado del período';dash.getCell(cell.replace('6','8')).font={size:9,color:{argb:muted}};dash.getCell(cell.replace('6','8')).alignment={horizontal:'center'}}
     dash.getRow(7).height=30;
     dash.mergeCells('B10:F10');dash.getCell('B10').value='RESUMEN POR PISO';dash.getCell('B10').font={bold:true,size:12,color:{argb:white}};dash.getCell('B10').fill={type:'pattern',pattern:'solid',fgColor:{argb:navy}};
